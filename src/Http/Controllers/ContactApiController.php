@@ -45,8 +45,7 @@ class ContactApiController extends BaseController
      */
     public function index(Request $request)
     {
-        $contacts = Contact::with('category');
-        $contacts->select(['id', 'name', 'is_publish', 'created_at']);
+        $contacts = Contact::select(['id', 'name', 'latitude', 'longitude', 'zoom', 'is_publish', 'created_at']);
 
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
@@ -57,13 +56,20 @@ class ContactApiController extends BaseController
         $addUrls = $this->urls;
         $addColumns = [
             'addUrls'           => $addUrls,
-            'status'            => function($model) { return $model->is_publish; }
+            'status'            => function($model) { return $model->is_publish; },
+            'map'               => function($model)
+            {
+//                return "<img src='https://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=400x200&maptype=roadmap&format=jpeg'>";
+//                return "<img src='http://maps.googleapis.com/maps/api/staticmap?center?Albany,+NY&zoom={$model->zoom}&size=400x200&format=jpg&maptype=roadmap&markers=color:green%7C{$model->latitude},{$model->longitude}&visual_refresh=true'>";
+                return "<img src='https://maps.googleapis.com/maps/api/staticmap?size=320x140&scale=2&zoom=15&sensor=false&markers=color:0xEE6B1C|label:A|V.%20FALCONE%207%20CASALETTO%20LODIGIANO%20(LO)'>";
+//                return "<img width=\"600\" src=\"http://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true\" alt=\"Google Map of Albany, NY\">";
+            }
         ];
         $editColumns = [
             'name'              => function($model) { return $model->name_uc_first; },
             'created_at'        => function($model) { return $model->created_at_table; }
         ];
-        $removeColumns = ['is_publish'];
+        $removeColumns = ['latitude','longitude','zoom','is_publish'];
         return $this->getDatatables($contacts, $addColumns, $editColumns, $removeColumns);
     }
 
