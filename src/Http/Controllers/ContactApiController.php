@@ -45,7 +45,7 @@ class ContactApiController extends BaseController
      */
     public function index(Request $request)
     {
-        $contacts = Contact::select(['id', 'name', 'latitude', 'longitude', 'zoom', 'is_publish', 'created_at']);
+        $contacts = Contact::select(['id','name','latitude','longitude','zoom','is_publish','created_at']);
 
         // if is filter action
         if ($request->has('action') && $request->input('action') === 'filter') {
@@ -59,10 +59,11 @@ class ContactApiController extends BaseController
             'status'            => function($model) { return $model->is_publish; },
             'map'               => function($model)
             {
-//                return "<img src='https://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=400x200&maptype=roadmap&format=jpeg'>";
-//                return "<img src='http://maps.googleapis.com/maps/api/staticmap?center?Albany,+NY&zoom={$model->zoom}&size=400x200&format=jpg&maptype=roadmap&markers=color:green%7C{$model->latitude},{$model->longitude}&visual_refresh=true'>";
-                return "<img src='https://maps.googleapis.com/maps/api/staticmap?size=320x140&scale=2&zoom=15&sensor=false&markers=color:0xEE6B1C|label:A|V.%20FALCONE%207%20CASALETTO%20LODIGIANO%20(LO)'>";
-//                return "<img width=\"600\" src=\"http://maps.googleapis.com/maps/api/staticmap?center=Albany,+NY&zoom=13&scale=false&size=600x300&maptype=roadmap&format=png&visual_refresh=true\" alt=\"Google Map of Albany, NY\">";
+                return [
+                    'latitude'  => $model->latitude,
+                    'longitude' => $model->longitude,
+                    'zoom'      => $model->zoom,
+                ];
             }
         ];
         $editColumns = [
@@ -82,18 +83,44 @@ class ContactApiController extends BaseController
      */
     public function detail($id, Request $request)
     {
-        $contact = Contact::with(['province', 'county', 'district', 'neighborhood', 'postalCode'])
+        $contact = Contact::with(['province', 'county', 'district', 'neighborhood', 'postalCode', 'numbers', 'emails'])
             ->where('id',$id)
-            ->select(['id','name','province_id','county_id','district_id','neighborhood_id','postal_code_id','address','land_phone','mobile_phone','url','created_at','updated_at']);
+            ->select(['id','name','province_id','county_id','district_id','neighborhood_id','postal_code_id','address','latitude','longitude','zoom','created_at','updated_at']);
 
+        $addColumns = [
+            'map'               => function($model)
+            {
+                return [
+                    'latitude'  => $model->latitude,
+                    'longitude' => $model->longitude,
+                    'zoom'      => $model->zoom,
+                ];
+            }
+        ];
         $editColumns = [
             'name'          => function($model) { return $model->name_uc_first; },
             'created_at'    => function($model) { return $model->created_at_table; },
             'updated_at'    => function($model) { return $model->updated_at_table; },
             'address'       => function($model) { return $model->full_address; },
+            'numbers'       => function($model)
+            {
+                return $model->numbers->map(function($item, $key)
+                {
+                    $item->title = $item->title_uc_first;
+                    return $item;
+                })->toArray();
+            },
+            'emails'       => function($model)
+            {
+                return $model->emails->map(function($item, $key)
+                {
+                    $item->title = $item->title_uc_first;
+                    return $item;
+                })->toArray();
+            }
         ];
-        $removeColumns = ['province_id','province','county_id','county','district_id','district','neighborhood_id','neighborhood','postal_code_id','postal_code'];
-        return $this->getDatatables($contact, [], $editColumns, $removeColumns);
+        $removeColumns = ['province_id','province','county_id','county','district_id','district','neighborhood_id','neighborhood','postal_code_id','postal_code','latitude','longitude','zoom'];
+        return $this->getDatatables($contact, $addColumns, $editColumns, $removeColumns);
     }
 
     /**
@@ -107,7 +134,7 @@ class ContactApiController extends BaseController
     {
         return Contact::with(['province','county','district','neighborhood','postalCode'])
             ->where('id',$id)
-            ->first(['id','name','province_id','county_id','district_id','neighborhood_id','postal_code_id']);
+            ->first(['id','name','province_id','county_id','district_id','neighborhood_id','postal_code_id','is_publish']);
     }
 
     /**

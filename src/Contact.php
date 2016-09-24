@@ -138,6 +138,22 @@ class Contact extends Model
         return $this->belongsTo('App\PostalCode');
     }
 
+    /**
+     * Get the contact numbers.
+     */
+    public function numbers()
+    {
+        return $this->hasMany('App\ContactNumber','contact_id');
+    }
+
+    /**
+     * Get the contact emails.
+     */
+    public function emails()
+    {
+        return $this->hasMany('App\ContactEmail','contact_id');
+    }
+
 
 
 

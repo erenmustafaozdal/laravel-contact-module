@@ -10,6 +10,8 @@ return [
     'icons' => [
         'contact'           => 'icon-call-end'
     ],
+    'map_marker_color'      => '#76BE1E', // google marker colors (green,blue) or hex decimal (#76BE1E)
+    'google_api_key'        => 'AIzaSyDt_BTC7JZ0TPkjSi0gRNmeTOdkbcqgRdo', // for map
 
     /*
     |--------------------------------------------------------------------------
