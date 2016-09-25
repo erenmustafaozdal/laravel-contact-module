@@ -24,6 +24,26 @@ use ErenMustafaOzdal\LaravelContactModule\Http\Requests\Contact\UpdateRequest;
 class ContactController extends BaseController
 {
     /**
+     * default relation datas
+     *
+     * @var array
+     */
+    private $relations = [
+        'numbers' => [
+            'relation_type'     => 'hasMany',
+            'relation'          => 'numbers',
+            'relation_model'    => '\App\ContactNumber',
+            'datas'             => null
+        ],
+        'emails' => [
+            'relation_type'     => 'hasMany',
+            'relation'          => 'emails',
+            'relation_model'    => '\App\ContactEmail',
+            'datas'             => null
+        ]
+    ];
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -56,6 +76,26 @@ class ContactController extends BaseController
             'success'   => StoreSuccess::class,
             'fail'      => StoreFail::class
         ]);
+        $relation = [];
+        if ($request->has('group-number') && is_array($request->get('group-number'))) {
+            $this->relations['numbers']['datas'] = collect($request->get('group-number'))->map(function($item)
+            {
+                $item['title'] = $item['number_title'];
+                unsetReturn($item,'number_title');
+                return $item;
+            });
+            $relation[] = $this->relations['numbers'];
+        }
+        if ($request->has('group-email') && is_array($request->get('group-email'))) {
+            $this->relations['emails']['datas'] = collect($request->get('group-email'))->map(function($item)
+            {
+                $item['title'] = $item['email_title'];
+                unsetReturn($item,'email_title');
+                return $item;
+            });
+            $relation[] = $this->relations['emails'];
+        }
+        $this->setOperationRelation($relation);
         return $this->storeModel(Contact::class,'index');
     }
 

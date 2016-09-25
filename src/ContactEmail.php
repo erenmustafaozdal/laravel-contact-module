@@ -21,7 +21,7 @@ class ContactEmail extends Model
      *
      * @var array
      */
-    protected $fillable = [ 'email' ];
+    protected $fillable = [ 'email', 'title' ];
 
     /**
      * All of the relationships to be touched.
