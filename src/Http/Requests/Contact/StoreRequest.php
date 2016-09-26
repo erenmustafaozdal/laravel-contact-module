@@ -46,16 +46,16 @@ class StoreRequest extends Request
         // group number rules extend
         if ($this->has('group-number') && is_array($this->get('group-number'))) {
             for ($i = 0; $i < count($this->get('group-number')); $i++) {
-                $rules['number.' . $i] = 'max:16|unique:contact_numbers,number';
-                $rules['number_title.' . $i] = 'max:255';
+                $rules['group-number.' . $i . '.number'] = 'max:16|unique:contact_numbers,number,' . $id . ',contact_id';
+                $rules['group-number.' . $i . '.number_title'] = 'max:255';
             }
         }
 
         // group email rules extend
         if ($this->has('group-email') && is_array($this->get('group-email'))) {
             for ($i = 0; $i < count($this->get('group-email')); $i++) {
-                $rules['email.' . $i] = 'max:255|unique:contact_emails,email';
-                $rules['email_title.' . $i] = 'max:255';
+                $rules['group-email.' . $i . '.email'] = 'max:255|unique:contact_emails,email,' . $id . ',contact_id';
+                $rules['group-email.' . $i . '.email_title'] = 'max:255';
             }
         }
 

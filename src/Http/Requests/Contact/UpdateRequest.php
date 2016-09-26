@@ -29,10 +29,7 @@ class UpdateRequest extends Request
     {
         $id = is_null($this->segment(5)) ? $this->segment(3) : $this->segment(5);
         $rules = [
-            'name'              => 'required|max:255',
             'address'           => 'max:255',
-            'province_id'       => 'required|integer|exists:provinces,id',
-            'county_id'         => 'required|integer|exists:counties,id',
             'district_id'       => 'integer|exists:districts,id',
             'neighborhood_id'   => 'integer|exists:neighborhoods,id',
             'postal_code_id'    => 'integer|exists:postal_codes,id',
@@ -44,19 +41,25 @@ class UpdateRequest extends Request
             'zoom'              => 'numeric|between:1,20',
         ];
 
+        if( $this->form === 'general' ) {
+            $rules['name']          = 'required|max:255';
+            $rules['province_id']   = 'required|integer|exists:provinces,id';
+            $rules['county_id']     = 'required|integer|exists:counties,id';
+        }
+
         // group number rules extend
         if ($this->has('group-number') && is_array($this->get('group-number'))) {
             for ($i = 0; $i < count($this->get('group-number')); $i++) {
-                $rules['number.' . $i] = 'max:16|unique:contact_numbers,number,' . $id . ',contact_id';
-                $rules['number_title.' . $i] = 'max:255';
+                $rules['group-number.' . $i . '.number'] = 'max:16|unique:contact_numbers,number,' . $id . ',contact_id';
+                $rules['group-number.' . $i . '.number_title'] = 'max:255';
             }
         }
 
         // group email rules extend
         if ($this->has('group-email') && is_array($this->get('group-email'))) {
             for ($i = 0; $i < count($this->get('group-email')); $i++) {
-                $rules['email.' . $i] = 'max:255|unique:contact_emails,email,' . $id . ',contact_id';
-                $rules['email_title.' . $i] = 'max:255';
+                $rules['group-email.' . $i . '.email'] = 'max:255|unique:contact_emails,email,' . $id . ',contact_id';
+                $rules['group-email.' . $i . '.email_title'] = 'max:255';
             }
         }
 
