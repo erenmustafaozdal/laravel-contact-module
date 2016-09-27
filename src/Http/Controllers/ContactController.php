@@ -102,7 +102,7 @@ class ContactController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function show($contact)
@@ -113,7 +113,7 @@ class ContactController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function edit($contact)
@@ -126,7 +126,7 @@ class ContactController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, $contact)
@@ -155,13 +155,13 @@ class ContactController extends BaseController
             $relation[] = $this->relations['emails'];
         }
         $this->setOperationRelation($relation);
-        return $this->updateModel($contact,'show', true);
+        return $this->updateModel($contact,'show');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function destroy($contact)
@@ -176,7 +176,7 @@ class ContactController extends BaseController
     /**
      * publish model
      *
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function publish($contact)
@@ -193,7 +193,7 @@ class ContactController extends BaseController
     /**
      * not publish model
      *
-     * @param integer|Contact $contact
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
     public function notPublish($contact)

@@ -27,7 +27,7 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        $id = is_null($this->segment(5)) ? $this->segment(3) : $this->segment(5);
+        $id = $this->segment(3);
         $rules = [
             'address'           => 'max:255',
             'district_id'       => 'integer|exists:districts,id',
