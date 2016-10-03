@@ -33,12 +33,14 @@ class ContactController extends BaseController
             'relation_type'     => 'hasMany',
             'relation'          => 'numbers',
             'relation_model'    => '\App\ContactNumber',
+            'is_reset'          => true,
             'datas'             => null
         ],
         'emails' => [
             'relation_type'     => 'hasMany',
             'relation'          => 'emails',
             'relation_model'    => '\App\ContactEmail',
+            'is_reset'          => true,
             'datas'             => null
         ]
     ];
