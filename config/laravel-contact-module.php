@@ -10,7 +10,7 @@ return [
     'icons' => [
         'contact'           => 'icon-call-end'
     ],
-    'google_api_key'        => 'AIzaSyDt_BTC7JZ0TPkjSi0gRNmeTOdkbcqgRdo', // for map
+    'google_api_key'        => 'AIzaSyCjEWf270WVlOolKfwRe71Iq_G5UWmBnok', // for map
 
     /*
     |--------------------------------------------------------------------------
