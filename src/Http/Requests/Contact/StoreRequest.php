@@ -32,9 +32,9 @@ class StoreRequest extends Request
             'address'           => 'max:255',
             'province_id'       => 'required|integer|exists:provinces,id',
             'county_id'         => 'required|integer|exists:counties,id',
-            'district_id'       => 'integer|exists:districts,id',
-            'neighborhood_id'   => 'integer|exists:neighborhoods,id',
-            'postal_code_id'    => 'integer|exists:postal_codes,id',
+            'district_id'       => 'integer',
+            'neighborhood_id'   => 'integer',
+            'postal_code_id'    => 'integer',
             'group-number'      => 'array',
             'group-email'       => 'array',
             'map_title'         => 'max:255',
@@ -46,7 +46,7 @@ class StoreRequest extends Request
         // group number rules extend
         if ($this->has('group-number') && is_array($this->get('group-number'))) {
             for ($i = 0; $i < count($this->get('group-number')); $i++) {
-                $rules['group-number.' . $i . '.number'] = 'max:16|unique:contact_numbers,number,' . $id . ',contact_id';
+                $rules['group-number.' . $i . '.number'] = 'max:16|unique:contact_numbers,number';
                 $rules['group-number.' . $i . '.number_title'] = 'max:255';
             }
         }
@@ -54,7 +54,7 @@ class StoreRequest extends Request
         // group email rules extend
         if ($this->has('group-email') && is_array($this->get('group-email'))) {
             for ($i = 0; $i < count($this->get('group-email')); $i++) {
-                $rules['group-email.' . $i . '.email'] = 'max:255|unique:contact_emails,email,' . $id . ',contact_id';
+                $rules['group-email.' . $i . '.email'] = 'max:255|unique:contact_emails,email';
                 $rules['group-email.' . $i . '.email_title'] = 'max:255';
             }
         }

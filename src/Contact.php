@@ -230,4 +230,14 @@ class Contact extends Model
         }
         return $address;
     }
+
+    /**
+     * get map title or name attribute
+     *
+     * @return string
+     */
+    public function getMapTitleOrNameAttribute()
+    {
+        return $this->map_title != '' ? $this->map_title : $this->name_uc_first;
+    }
 }
