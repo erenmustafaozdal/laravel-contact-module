@@ -54,4 +54,50 @@ return [
             'edit'      => 'laravel-modules-core::contact.operation',             // get contact edit view blade
         ]
     ],
+
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Permissions
+    |--------------------------------------------------------------------------
+    */
+    'permissions' => [
+        'contact' => [
+            'title'                 => 'İletişim',
+            'routes' => [
+                'admin.contact.index' => [
+                    'title'         => 'Veri Tablosu',
+                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda listeleyebilir.',
+                ],
+                'admin.contact.create' => [
+                    'title'         => 'Ekleme',
+                    'description'   => 'Bu izne sahip olanlar şube ekleyebilir',
+                ],
+                'admin.contact.show' => [
+                    'title'         => 'Gösterme',
+                    'description'   => 'Bu izne sahip olanlar şube bilgilerini görüntüleyebilir',
+                ],
+                'admin.contact.edit' => [
+                    'title'         => 'Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar şubeyi düzenleyebilir',
+                ],
+                'admin.contact.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar şubeyi silebilir',
+                ],
+                'api.contact.group' => [
+                    'title'         => 'Toplu İşlem',
+                    'description'   => 'Bu izne sahip olanlar şubeler veri tablosunda toplu işlem yapabilir',
+                ],
+                'api.contact.detail' => [
+                    'title'         => 'Detaylar',
+                    'description'   => 'Bu izne sahip olanlar şubeler tablosunda detayını görebilir.',
+                ],
+            ],
+        ],
+    ],
 ];
