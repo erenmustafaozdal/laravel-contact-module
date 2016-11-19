@@ -71,9 +71,13 @@ return [
             'routes' => [
                 'admin.contact.index' => [
                     'title'         => 'Veri Tablosu',
-                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda listeleyebilir.',
+                    'description'   => 'Bu izne sahip olanlar şubeler veri tablosu sayfasına gidebilir.',
                 ],
                 'admin.contact.create' => [
+                    'title'         => 'Ekleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar şube ekleme sayfasına gidebilir',
+                ],
+                'admin.contact.store' => [
                     'title'         => 'Ekleme',
                     'description'   => 'Bu izne sahip olanlar şube ekleyebilir',
                 ],
@@ -82,12 +86,40 @@ return [
                     'description'   => 'Bu izne sahip olanlar şube bilgilerini görüntüleyebilir',
                 ],
                 'admin.contact.edit' => [
+                    'title'         => 'Düzenleme Sayfası',
+                    'description'   => 'Bu izne sahip olanlar şubeyi düzenleme sayfasına gidebilir',
+                ],
+                'admin.contact.update' => [
                     'title'         => 'Düzenleme',
                     'description'   => 'Bu izne sahip olanlar şubeyi düzenleyebilir',
                 ],
                 'admin.contact.destroy' => [
                     'title'         => 'Silme',
                     'description'   => 'Bu izne sahip olanlar şubeyi silebilir',
+                ],
+                'admin.contact.publish' => [
+                    'title'         => 'Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar şubeyi yayınlayabilir',
+                ],
+                'admin.contact.notPublish' => [
+                    'title'         => 'Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar şubeyi yayından kaldırabilir',
+                ],
+                'api.contact.index' => [
+                    'title'         => 'Listeleme',
+                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda listeleyebilir',
+                ],
+                'api.contact.store' => [
+                    'title'         => 'Hızlı Ekleme',
+                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda hızlı ekleyebilir.',
+                ],
+                'api.contact.update' => [
+                    'title'         => 'Hızlı Düzenleme',
+                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda hızlı düzenleyebilir.',
+                ],
+                'api.contact.destroy' => [
+                    'title'         => 'Silme',
+                    'description'   => 'Bu izne sahip olanlar şubeleri veri tablosunda silebilir',
                 ],
                 'api.contact.group' => [
                     'title'         => 'Toplu İşlem',
@@ -96,6 +128,18 @@ return [
                 'api.contact.detail' => [
                     'title'         => 'Detaylar',
                     'description'   => 'Bu izne sahip olanlar şubeler tablosunda detayını görebilir.',
+                ],
+                'api.contact.fastEdit' => [
+                    'title'         => 'Hızlı Düzenleme Bilgileri',
+                    'description'   => 'Bu izne sahip olanlar şubeler tablosunda hızlı düzenleme amacıyla bilgileri getirebilir.',
+                ],
+                'api.contact.publish' => [
+                    'title'         => 'Hızlı Yayınlama',
+                    'description'   => 'Bu izne sahip olanlar şubeler tablosunda şubeyi yayınlanyabilir.',
+                ],
+                'api.contact.notPublish' => [
+                    'title'         => 'Hızlı Yayından Kaldırma',
+                    'description'   => 'Bu izne sahip olanlar şubeler tablosunda şubeyi yayından kaldırabilir.',
                 ],
             ],
         ],
