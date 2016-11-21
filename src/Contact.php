@@ -240,4 +240,43 @@ class Contact extends Model
     {
         return $this->map_title != '' ? $this->map_title : $this->name_uc_first;
     }
+
+    /**
+     * set latitude attribute
+     *
+     * @param float $value
+     */
+    public function setLatitudeAttribute($value)
+    {
+        if ( ! $value) {
+            return;
+        }
+        $this->attributes['latitude'] = $value;
+    }
+
+    /**
+     * set longitude attribute
+     *
+     * @param float $value
+     */
+    public function setLongitudeAttribute($value)
+    {
+        if ( ! $value) {
+            return;
+        }
+        $this->attributes['longitude'] = $value;
+    }
+
+    /**
+     * set zoom attribute
+     *
+     * @param integer $value
+     */
+    public function setZoomAttribute($value)
+    {
+        if ( ! $value) {
+            return;
+        }
+        $this->attributes['zoom'] = $value;
+    }
 }

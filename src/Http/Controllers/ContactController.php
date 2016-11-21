@@ -80,7 +80,10 @@ class ContactController extends BaseController
         ]);
         $relation = [];
         if ($request->has('group-number') && is_array($request->get('group-number'))) {
-            $this->relations['numbers']['datas'] = collect($request->get('group-number'))->map(function($item)
+            $this->relations['numbers']['datas'] = collect($request->get('group-number'))->reject(function($item)
+            {
+                return $item['number_title'] == '' || $item['number'] == '';
+            })->map(function($item)
             {
                 $item['title'] = $item['number_title'];
                 unsetReturn($item,'number_title');
@@ -89,7 +92,10 @@ class ContactController extends BaseController
             $relation[] = $this->relations['numbers'];
         }
         if ($request->has('group-email') && is_array($request->get('group-email'))) {
-            $this->relations['emails']['datas'] = collect($request->get('group-email'))->map(function($item)
+            $this->relations['emails']['datas'] = collect($request->get('group-email'))->reject(function($item)
+            {
+                return $item['email_title'] == '' || $item['email'] == '';
+            })->map(function($item)
             {
                 $item['title'] = $item['email_title'];
                 unsetReturn($item,'email_title');
@@ -139,7 +145,10 @@ class ContactController extends BaseController
         ]);
         $relation = [];
         if ($request->has('group-number') && is_array($request->get('group-number'))) {
-            $this->relations['numbers']['datas'] = collect($request->get('group-number'))->map(function($item)
+            $this->relations['numbers']['datas'] = collect($request->get('group-number'))->reject(function($item)
+            {
+                return $item['number_title'] == '' || $item['number'] == '';
+            })->map(function($item)
             {
                 $item['title'] = $item['number_title'];
                 unsetReturn($item,'number_title');
@@ -148,7 +157,10 @@ class ContactController extends BaseController
             $relation[] = $this->relations['numbers'];
         }
         if ($request->has('group-email') && is_array($request->get('group-email'))) {
-            $this->relations['emails']['datas'] = collect($request->get('group-email'))->map(function($item)
+            $this->relations['emails']['datas'] = collect($request->get('group-email'))->reject(function($item)
+            {
+                return $item['email_title'] == '' || $item['email'] == '';
+            })->map(function($item)
             {
                 $item['title'] = $item['email_title'];
                 unsetReturn($item,'email_title');
