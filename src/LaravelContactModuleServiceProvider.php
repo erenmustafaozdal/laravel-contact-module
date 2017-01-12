@@ -38,24 +38,9 @@ class LaravelContactModuleServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/laravel-contact-module.php', 'laravel-contact-module'
         );
-        // merge default configs with publish configs
-        $this->mergeDefaultConfig();
 
         $router = $this->app['router'];
         // model binding
         $router->model(config('laravel-contact-module.url.contact'),  'App\Contact');
-    }
-
-    /**
-     * merge default configs with publish configs
-     */
-    protected function mergeDefaultConfig()
-    {
-        $config = $this->app['config']->get('laravel-contact-module', []);
-        $default = require __DIR__.'/../config/default.php';
-
-        $config['routes'] = $default['routes'];
-
-        $this->app['config']->set('laravel-contact-module', $config);
     }
 }
